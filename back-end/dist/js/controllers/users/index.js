@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.db = void 0;
 const query_1 = require("../../plagins/query");
 const getUsers = (request, response) => {
     query_1.pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
@@ -47,7 +46,7 @@ const deleteUser = (request, response) => {
         response.status(200).send(`User deleted with ID: ${id}`);
     });
 };
-exports.db = {
+exports.default = {
     getUsers,
     getUserById,
     createUser,

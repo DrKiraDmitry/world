@@ -57,7 +57,7 @@ const deleteUser = (request: any, response: any) => {
     })
 }
 
-export const db = {
+export default {
     getUsers,
     getUserById,
     createUser,

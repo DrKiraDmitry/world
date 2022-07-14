@@ -1,7 +1,7 @@
 ﻿import express, { Express } from "express"
 import cors from "cors"
 import todoRoutes from "./routes"
-import {db} from "./controllers/users"
+import db from "./controllers/users"
 
 const app: Express = express()
 
