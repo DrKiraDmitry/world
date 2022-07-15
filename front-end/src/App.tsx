@@ -1,23 +1,31 @@
 import React from "react";
 import "src/App.css";
-import { useObserver } from "mobx-react-lite";
 import { RootStore } from "src/stores/RootStore";
-import { Provider } from "mobx-react";
+import { observer, Provider } from "mobx-react";
+import { createBrowserHistory } from "history";
+import { LoadingIf } from "src/components/Loading";
+import { HistoryAdapter, RouterView } from "mobx-state-router";
+import { RouteViewMap } from "./routing/routes";
+import "mobx-react-lite/batchingForReactDom";
 
 let root: RootStore;
 
 const ensureInitialized = () => {
   if (root) return;
   root = new RootStore();
+  const historyAdapter = new HistoryAdapter(root.routerStore, createBrowserHistory());
+  historyAdapter.observeRouterStateChanges();
 };
 
-function App() {
+export const App = observer(() => {
   ensureInitialized();
-  return useObserver(() => (
+  return (
     <Provider rootStore={root}>
-      <div className="App"></div>
+      <LoadingIf isLoading={root.routerStore.isTransitioning}>
+        <RouterView routerStore={root.routerStore} viewMap={RouteViewMap} />
+      </LoadingIf>
     </Provider>
-  ));
-}
+  );
+});
 
 export default App;

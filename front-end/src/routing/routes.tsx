@@ -9,6 +9,7 @@ export enum RouteNames {
 
 export const RouteViewMap = {
   [RouteNames.notFound]: <div>404 - not found</div>,
+  [RouteNames.index]: <div>404 - not found</div>,
 };
 
 export const Routes: Route[] = convertRoutes([
