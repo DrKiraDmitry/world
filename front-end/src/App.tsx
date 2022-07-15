@@ -27,5 +27,3 @@ export const App = observer(() => {
     </Provider>
   );
 });
-
-export default App;

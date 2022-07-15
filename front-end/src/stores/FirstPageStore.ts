@@ -10,14 +10,13 @@ export class FirstPageStore {
   @action Switch() {
     this.one = !this.one;
   }
-  
+
   @action async getTodos() {
     try {
-      const r = await fetch('http://localhost:4000').then((e) => e.json())
-      console.log(r)
-      this.data = r
+      const r = await fetch("http://localhost:4000").then((e) => e.json());
+      this.data = r;
     } catch (e) {
-      alert(e)
+      alert(e);
     }
   }
 }

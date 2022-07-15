@@ -2,7 +2,7 @@
 import { useRootStore } from "src/utils/rootStoreUtils";
 import { World } from "../../components/World";
 
-const FirstPage = () => {
+export const FirstPage = () => {
   const { firstPageStore: store } = useRootStore();
   return (
     <div>
