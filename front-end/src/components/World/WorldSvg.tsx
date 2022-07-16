@@ -1,27 +1,8 @@
-﻿import React, { useEffect } from "react";
-import anime from "animejs";
+﻿import React from "react";
 
-export const World = () => {
-  useEffect(() => {
-    anime({
-      targets: "svg path",
-      strokeDashoffset: [anime.setDashoffset, 0],
-      easing: "linear",
-      duration: 1500,
-      delay: function (el, i) {
-        return i * 250;
-      },
-      direction: "alternate",
-      loop: false,
-    });
-  }, []);
+export const WorldSvg = () => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="8.88889in"
-      height="4.44444in"
-      viewBox="0 0 800 400"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="8.88889in" height="4.44444in" viewBox="0 0 800 400">
       <path
         id="Taiwan"
         fill="none"
