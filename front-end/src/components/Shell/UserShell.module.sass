@@ -1,5 +1,31 @@
 ﻿@use "src/styles/varibles"
 
 .nav
-  @media (min-width: varibles.$media-lg)
-    background: black
+  position: fixed
+  height: 140vh
+  overflow: hidden
+  background: varibles.$per-white
+  transform: rotateZ(-10deg) translateY(-20vh)
+  width: 400px
+  left: 10vh
+  box-shadow: 1px 0px 18px 11px varibles.$per-shadow-opacity
+  ul
+    margin-top: 30vh
+    list-style: none
+    display: flex
+    flex-direction: column
+    li
+      background: varibles.$per-black
+      color: varibles.$per-white-text
+      font-size: 3rem
+      margin-bottom: 2.5rem
+      cursor: pointer
+      button
+        cursor: pointer
+        font-size: inherit
+        color: inherit
+        background: transparent
+        
+      
+  
+  
