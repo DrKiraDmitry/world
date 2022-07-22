@@ -1,6 +1,6 @@
 ﻿import React from "react";
 
-export const WorldSvg = () => {
+export default function WorldSvg() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="8.88889in" height="4.44444in" viewBox="0 0 800 400">
       <path
@@ -1152,4 +1152,4 @@ export const WorldSvg = () => {
       />
     </svg>
   );
-};
+}

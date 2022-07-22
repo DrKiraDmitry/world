@@ -1,5 +1,5 @@
 ﻿import React, { FC } from "react";
-import { World } from "src/components/World/World";
+import { ThreeScene } from "src/components/World/World";
 import { useRootStore } from "src/utils/rootStoreUtils";
 import { UserShellStore } from "src/stores/UserShellStore/UserShellStore";
 import { useObserver } from "mobx-react-lite";
@@ -9,11 +9,11 @@ const Menu: FC<{ store: UserShellStore }> = ({ store }) => {
   return (
     <nav className={styles.nav}>
       <ul>
-        <li>
-          <button onClick={() => store.Switch()}>Disable Map</button>
+        <li onClick={() => store.Switch()}>
+          <button>Disable Map</button>
         </li>
-        <li>
-          <button onClick={() => store.Switch()}>LogOut</button>
+        <li onClick={() => store.testCopy()}>
+          <button>LogOut</button>
         </li>
       </ul>
     </nav>
@@ -23,9 +23,9 @@ const Menu: FC<{ store: UserShellStore }> = ({ store }) => {
 export const UserShell: FC = ({ children }) => {
   const { userShellStore: store } = useRootStore();
   return useObserver(() => (
-    <div>
+    <div style={{ height: `100vh`, width: `100vw` }}>
       <Menu store={store} />
-      {store.one && <World />}
+      {store.one && <ThreeScene />}
       {children}
     </div>
   ));

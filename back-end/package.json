@@ -5,19 +5,23 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "back": "concurrently \"tsc -w\" \"nodemon dist/js/app.js localhost 8080\""
+    "back": "concurrently \"tsc -w\" \"nodemon dist/js/app.js localhost 8080\"",
+    "migrate": "node-pg-migrate up "
   },
   "dependencies": {
+    "config": "^3.3.7",
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "node-pg-migrate": "^6.2.2",
     "pg": "^8.7.3",
+    "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   },
   "devDependencies": {
-    "@types/pg": "^8.6.5",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/node": "^18.0.3",
+    "@types/pg": "^8.6.5",
     "concurrently": "^7.2.2",
     "nodemon": "^2.0.19"
   }

@@ -1,0 +1,11 @@
+﻿{
+  "db": {
+    "user": "postgres",
+    "password": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "database": "kira-world",
+    "tsconfig": "tsconfig.json",
+    "migration-filename-format": "utc"
+  }
+}
