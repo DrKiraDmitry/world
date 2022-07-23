@@ -75,7 +75,22 @@ export class SecureCoreApi extends CoreApi {
   }
 }
 
+class LocalStoreChanger {
+  @observable thief =
+    window.localStorage.getItem("Thief") === null ? null : Boolean(window.localStorage.getItem("Thief"));
+  constructor() {}
+  @action localThief(x: boolean) {
+    this.thief = x;
+    window.localStorage.setItem("Thief", x.toString());
+  }
+  @action clear() {
+    window.localStorage.clear();
+    this.thief = null;
+  }
+}
+
 export class RootStore {
+  @observable optimizationStore = new LocalStoreChanger();
   @observable routerStore = new RouterStore(this, Routes, new RouterState("not-found"));
   @observable loginPageStore = new LoginPageStore(this);
   @observable firstPageStore = new FirstPageStore(this);

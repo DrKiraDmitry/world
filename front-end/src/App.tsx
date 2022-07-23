@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RootStore } from "src/stores/RootStore";
 import { observer, Provider } from "mobx-react";
 import { createBrowserHistory } from "history";
@@ -6,7 +6,8 @@ import { LoadingIf } from "src/components/Loading";
 import { HistoryAdapter, RouterView } from "mobx-state-router";
 import { RouteViewMap } from "./routing/routes";
 import "mobx-react-lite/batchingForReactDom";
-import { UserShell } from "./components/Shell/UserShell";
+import { UserShell } from "src/components/Shell/UserShell/UserShell";
+import { AnonShell } from "./components/Shell/AnonShell/AnonShell";
 
 let root: RootStore;
 
@@ -19,13 +20,22 @@ const ensureInitialized = () => {
 
 export const App = observer(() => {
   ensureInitialized();
+  const [cookie, setCookie] = useState(false);
   return (
     <Provider rootStore={root}>
-      <UserShell>
-        <LoadingIf isLoading={root.routerStore.isTransitioning}>
-          <RouterView routerStore={root.routerStore} viewMap={RouteViewMap} />
-        </LoadingIf>
-      </UserShell>
+      {cookie ? (
+        <UserShell>
+          <LoadingIf isLoading={root.routerStore.isTransitioning}>
+            <RouterView routerStore={root.routerStore} viewMap={RouteViewMap} />
+          </LoadingIf>
+        </UserShell>
+      ) : (
+        <AnonShell>
+          <LoadingIf isLoading={root.routerStore.isTransitioning}>
+            <RouterView routerStore={root.routerStore} viewMap={RouteViewMap} />
+          </LoadingIf>
+        </AnonShell>
+      )}
     </Provider>
   );
 });

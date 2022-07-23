@@ -4,7 +4,7 @@
 
 ### Global
 
-- [ ] Migrations
+- [x] Migrations
 
 ### Login-page
 

@@ -1,19 +1,28 @@
-﻿import React from "react";
+﻿import React, { useState } from "react";
 import { useRootStore } from "src/utils/rootStoreUtils";
-import { LabelInput } from "../../components/Inputs/LabelInput";
+import { useObserver } from "mobx-react-lite";
+import ExaminationForm from "./ExaminationForm";
+import SigInForm from "./SigInForm";
+import LoginForm from "./LoginForm";
+import styles from "./LoginPage.module.sass";
 
-const LoginPage = () => {
-  const { loginPageStore: store } = useRootStore();
-  return (
-    <div>
-      <form>
-        <LabelInput type={"text"} onChange={(e) => (store.email = e.target.value)} />
-        <LabelInput type={"password"} onChange={(e) => (store.password = e.target.value)} />
-        <div>
-          <button>Lets Go!</button>
-          <button>I wanna too</button>
-        </div>
-      </form>
+export const LoginPage = () => {
+  const { loginPageStore: store, optimizationStore } = useRootStore();
+  const [loginForm, setLoginForm] = useState(true);
+  return useObserver(() => (
+    <div className={styles.loginPage__container}>
+      <button style={{ position: "fixed", left: 0 }} onClick={() => optimizationStore.clear()}>
+        Clear
+      </button>
+      {optimizationStore.thief !== null ? (
+        <>
+          <button onClick={() => setLoginForm(true)}>Login</button>
+          {loginForm ? <LoginForm store={store} /> : <SigInForm store={store} />}
+          <button onClick={() => setLoginForm(false)}>I wanna too</button>
+        </>
+      ) : (
+        <ExaminationForm />
+      )}
     </div>
-  );
+  ));
 };
