@@ -10,15 +10,29 @@ export const LoginPage = () => {
   const { loginPageStore: store, optimizationStore } = useRootStore();
   const [loginForm, setLoginForm] = useState(true);
   return useObserver(() => (
-    <div className={styles.loginPage__container}>
+    <div
+      className={`${styles.loginPage__container} ${
+        loginForm ? styles.loginPage__container_1 : styles.loginPage__container_2
+      } `}
+    >
       <button style={{ position: "fixed", left: 0 }} onClick={() => optimizationStore.clear()}>
         Clear
       </button>
       {optimizationStore.thief !== null ? (
         <>
-          <button onClick={() => setLoginForm(true)}>Login</button>
+          <button
+            className={`${styles.loginPage__button} ${styles.loginPage__button_left}`}
+            onClick={() => setLoginForm(true)}
+          >
+            <span className={styles.loginPage__button__span}>Login</span>
+          </button>
           {loginForm ? <LoginForm store={store} /> : <SigInForm store={store} />}
-          <button onClick={() => setLoginForm(false)}>I wanna too</button>
+          <button
+            className={`${styles.loginPage__button} ${styles.loginPage__button_right}`}
+            onClick={() => setLoginForm(false)}
+          >
+            <span className={styles.loginPage__button__span}>I wanna too</span>
+          </button>
         </>
       ) : (
         <ExaminationForm />

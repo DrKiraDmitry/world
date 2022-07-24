@@ -3,20 +3,29 @@
 @mixin persona-box
   box-shadow: 0 0 0 10px black
   background: $per-black
-  border: 4px solid $per-white
-  padding: 2rem
+  //padding: 2rem
   color: $per-white-text
-
-@mixin persona-strict
-  border: 20px solid transparent
-  border-top: 20px solid green
-  border-right: 20px solid green
-  position: absolute
-  top: 0
-  bottom: 0
-  right: 0
+  border: .25rem solid $per-white
+  transform-origin: center
+  transform: skewX(10deg)
   transition: 0.3s
   
-//@mixin persona-strict-1
-//  :before
+
+@mixin persona-box-before
+  &:before
+    content: ""
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    position: absolute
+    @include persona-box
+
+@mixin persona-strict-1
+  transform: skewX(-10deg)
+  //&:before
+  //  transform: skewX(-10deg)
+  //  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 100% 100%)
+  //&:after
+  //  clip-path: polygon(0% 0%, 0% 0%, 100% 100%, 0% 100%, 0% 100%)
     
