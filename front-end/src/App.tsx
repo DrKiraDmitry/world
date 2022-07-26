@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RootStore } from "src/stores/RootStore";
 import { observer, Provider } from "mobx-react";
 import { createBrowserHistory } from "history";
@@ -23,6 +23,9 @@ export const App = observer(() => {
   const [cookie, setCookie] = useState(false);
   return (
     <Provider rootStore={root}>
+      <button style={{ position: "fixed", left: 0 }} onClick={() => root.optimizationStore.clear()}>
+        Clear
+      </button>
       {cookie ? (
         <UserShell>
           <LoadingIf isLoading={root.routerStore.isTransitioning}>

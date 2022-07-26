@@ -4,7 +4,15 @@
 .loginPage__container
   position: relative
   display: flex
+  justify-content: space-between
+  height: 80vh
+  width: 60vw
+  max-width: 1280px
+  max-height: 980px
   @include persona-box
+  
+.loginPage__form
+  width: 100%
 
 .loginPage__button
   width: 20%
@@ -12,13 +20,24 @@
   align-items: center
   justify-content: center
   padding: 20px
+  background-repeat: no-repeat
+  background-position: center
+  background-size: auto 70%
+  transition: width 0.3s
   &__span
     word-break: break-all
     width: 1px
-  &_left
+  &_left, &_right
     background-image: url("./loginButtonLeft.svg")
-    background-color: red
-    background-size: contain
+    background-color: transparent
+    background-position: 30% center
+    background-size: 400px
+    background-origin: content-box
+    z-index: 2
+    position: relative
+    overflow: hidden
+  &_open
+    width: 35%
   
 .loginPage__container_1
   @include persona-strict-1

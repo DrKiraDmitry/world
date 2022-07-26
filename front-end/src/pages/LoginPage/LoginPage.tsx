@@ -1,10 +1,13 @@
 ﻿import React, { useState } from "react";
 import { useRootStore } from "src/utils/rootStoreUtils";
 import { useObserver } from "mobx-react-lite";
-import ExaminationForm from "./ExaminationForm";
-import SigInForm from "./SigInForm";
-import LoginForm from "./LoginForm";
+import ExaminationForm from "./LoginPageForm/ExaminationForm";
+import SigInForm from "./LoginPageForm/SigInForm";
+import LoginForm from "./LoginPageForm/LoginForm";
 import styles from "./LoginPage.module.sass";
+import { MusicComponent } from "../../components/MusicComponent/MusicComponent";
+import { AnimationFireComponent, FireButton } from "../../components/Animation/Fire/AnimationFireComponent";
+import leftButton from "./loginButtonLeft.svg";
 
 export const LoginPage = () => {
   const { loginPageStore: store, optimizationStore } = useRootStore();
@@ -15,24 +18,14 @@ export const LoginPage = () => {
         loginForm ? styles.loginPage__container_1 : styles.loginPage__container_2
       } `}
     >
-      <button style={{ position: "fixed", left: 0 }} onClick={() => optimizationStore.clear()}>
-        Clear
-      </button>
+      <MusicComponent />
       {optimizationStore.thief !== null ? (
         <>
-          <button
-            className={`${styles.loginPage__button} ${styles.loginPage__button_left}`}
-            onClick={() => setLoginForm(true)}
-          >
-            <span className={styles.loginPage__button__span}>Login</span>
-          </button>
-          {loginForm ? <LoginForm store={store} /> : <SigInForm store={store} />}
-          <button
-            className={`${styles.loginPage__button} ${styles.loginPage__button_right}`}
-            onClick={() => setLoginForm(false)}
-          >
-            <span className={styles.loginPage__button__span}>I wanna too</span>
-          </button>
+          <FireButton text={"Login"} img={leftButton} onClick={() => setLoginForm(true)} />
+          <div className={styles.loginPage__form}>
+            {loginForm ? <LoginForm store={store} /> : <SigInForm store={store} />}
+          </div>
+          <FireButton text={"I wanna too"} img={leftButton} onClick={() => setLoginForm(false)} />
         </>
       ) : (
         <ExaminationForm />
