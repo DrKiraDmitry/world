@@ -1,4 +1,5 @@
-﻿$fireColor: rgb(255,80,0)
+﻿@import "src/styles/varibles"
+$fireColor: rgb(255,80,0)
 $fireColorT: rgba(255,80,0,0)
 $dur: 15s
 $blur: 0.02em
@@ -44,3 +45,24 @@ $partSize: 2em
     opacity: 0
     transform: scale(0)
 
+.Fire__button
+  width: 20%
+  display: flex
+  align-items: center
+  justify-content: center
+  padding: 20px
+  transition: width 0.3s
+  //background-color: $per-red
+  &__span
+    word-break: break-all
+    width: 1px
+    z-index: 2
+    font-size: 2rem
+  &__img
+    z-index: 1
+    position: absolute
+  &_left, &_right
+    position: relative
+    overflow: hidden
+  &_open
+    width: 35%

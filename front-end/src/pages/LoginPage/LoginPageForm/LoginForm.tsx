@@ -8,8 +8,8 @@ const LoginForm: FC<{ store: LoginPageStore }> = ({ store }) => {
       <LabelInput type={"text"} onChange={(e) => (store.email = e.target.value)} />
       <LabelInput type={"password"} onChange={(e) => (store.password = e.target.value)} />
       <div>
-        <button>Lets Go!</button>
-        <button>I wanna too</button>
+        <button>Accept</button>
+        <button>I dunno my password</button>
       </div>
     </form>
   );

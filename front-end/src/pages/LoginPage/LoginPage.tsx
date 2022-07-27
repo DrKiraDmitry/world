@@ -5,8 +5,8 @@ import ExaminationForm from "./LoginPageForm/ExaminationForm";
 import SigInForm from "./LoginPageForm/SigInForm";
 import LoginForm from "./LoginPageForm/LoginForm";
 import styles from "./LoginPage.module.sass";
-import { MusicComponent } from "../../components/MusicComponent/MusicComponent";
-import { AnimationFireComponent, FireButton } from "../../components/Animation/Fire/AnimationFireComponent";
+import { MusicComponent } from "src/components/MusicComponent/MusicComponent";
+import { FireButton } from "src/components/Animation/Fire/AnimationFireComponent";
 import leftButton from "./loginButtonLeft.svg";
 
 export const LoginPage = () => {
@@ -21,11 +21,11 @@ export const LoginPage = () => {
       <MusicComponent />
       {optimizationStore.thief !== null ? (
         <>
-          <FireButton text={"Login"} img={leftButton} onClick={() => setLoginForm(true)} />
+          <FireButton text={"Login"} img={leftButton} onClick={() => setLoginForm(true)} position={'left'} open={loginForm} />
           <div className={styles.loginPage__form}>
             {loginForm ? <LoginForm store={store} /> : <SigInForm store={store} />}
           </div>
-          <FireButton text={"I wanna too"} img={leftButton} onClick={() => setLoginForm(false)} />
+          <FireButton text={"I wanna too"} img={leftButton} onClick={() => setLoginForm(false)} position={'right'} open={!loginForm} />
         </>
       ) : (
         <ExaminationForm />
