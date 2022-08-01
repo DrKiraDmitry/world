@@ -10,9 +10,46 @@
   max-width: 1280px
   max-height: 980px
   @include persona-box
+
+.loginPage__h1
   
 .loginPage__form
   width: 100%
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  padding: 2rem
+  box-sizing: border-box
+  &__label
+    width: 100%
+    margin-bottom: 1rem
+    color: $per-white-text
+    display: flex
+    flex-direction: column
+    font-size: 2rem
+  &__input
+    border: 1rem solid $per-white
+    background: transparent
+    color: $per-white-text
+    font-size: 2rem
+    transition: border 0.3s
+    &:focus
+      outline: 0
+      border: 1rem solid $per-red
+    &::placeholder
+      color: $per-white-text
+  &__button
+    font-size: 2rem
+    color: $per-black
+    background: $per-white
+    width: 100%
+    white-space: nowrap
+    transition: background .3s 
+    padding: 1rem
+    font-weight: bold
+    &:hover
+      background: $per-red
   
 .loginPage__container_1
   @include persona-strict-1

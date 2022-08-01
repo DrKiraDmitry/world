@@ -1,8 +1,17 @@
 ﻿import { pool } from "../../Plagins/query";
 import { UserTypes } from "../../Types/UserTypes";
 
+export const getUserOneFoe = (email: string) => {
+  pool.query("SELECT * FROM users WHERE email = $1", [email], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    return true;
+  });
+};
+
 const getUsers = (request: any, response: any) => {
-  pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
+  return pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
     if (error) {
       throw error;
     }
@@ -19,21 +28,6 @@ const getUserById = (request: any, response: any) => {
     }
     response.status(200).json(results.rows);
   });
-};
-
-const createUser = (request: { body: Pick<UserTypes, "name" | "password"> }, response: any) => {
-  const { name, password } = request.body;
-
-  pool.query(
-    "INSERT INTO users (name, password, createdAt) VALUES ($1, $2, $3) RETURNING *",
-    [name, password, new Date()],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(201).send(`User added with ID: ${results.rows[0].id}`);
-    }
-  );
 };
 
 const updateUser = (request: any, response: any) => {
@@ -62,7 +56,6 @@ const deleteUser = (request: any, response: any) => {
 export default {
   getUsers,
   getUserById,
-  createUser,
   updateUser,
   deleteUser,
 };

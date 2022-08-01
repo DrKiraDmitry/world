@@ -1,5 +1,5 @@
-import {RootStore} from "src/stores/RootStore";
-import {Route, RouterState} from "mobx-state-router";
+import { RootStore } from "src/stores/RootStore";
+import { Route, RouterState } from "mobx-state-router";
 
 export interface RouteTransition {
   (root: RootStore, to: RouterState, from: RouterState): Promise<void> | void;
@@ -17,6 +17,7 @@ export interface AppRoute {
 }
 
 export function convertRoute(appRoute: AppRoute): Route {
+  console.log(appRoute);
   return {
     name: appRoute.name,
     pattern: appRoute.pattern,

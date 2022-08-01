@@ -1,4 +1,4 @@
-﻿@import "src/styles/varibles"
+﻿@use "src/styles/varibles"
 $fireColor: rgb(255,80,0)
 $fireColorT: rgba(255,80,0,0)
 $dur: 15s
@@ -52,7 +52,8 @@ $partSize: 2em
   justify-content: center
   padding: 20px
   transition: width 0.3s
-  //background-color: $per-red
+  background: varibles.$per-white
+  border: 0
   &__span
     word-break: break-all
     width: 1px
@@ -61,6 +62,7 @@ $partSize: 2em
   &__img
     z-index: 1
     position: absolute
+    pointer-events: none
   &_left, &_right
     position: relative
     overflow: hidden

@@ -1,8 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUserOneFoe = void 0;
 const query_1 = require("../../Plagins/query");
+const getUserOneFoe = (email) => {
+    query_1.pool.query("SELECT * FROM users WHERE email = $1", [email], (error, results) => {
+        if (error) {
+            throw error;
+        }
+        return true;
+    });
+};
+exports.getUserOneFoe = getUserOneFoe;
 const getUsers = (request, response) => {
-    query_1.pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
+    return query_1.pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
         if (error) {
             throw error;
         }
@@ -16,15 +26,6 @@ const getUserById = (request, response) => {
             throw error;
         }
         response.status(200).json(results.rows);
-    });
-};
-const createUser = (request, response) => {
-    const { name, email } = request.body;
-    query_1.pool.query("INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *", [name, email], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        response.status(201).send(`User added with ID: ${results.rows[0].id}`);
     });
 };
 const updateUser = (request, response) => {
@@ -49,7 +50,6 @@ const deleteUser = (request, response) => {
 exports.default = {
     getUsers,
     getUserById,
-    createUser,
     updateUser,
     deleteUser,
 };

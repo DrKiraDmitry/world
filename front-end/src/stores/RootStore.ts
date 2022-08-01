@@ -2,7 +2,7 @@
 import { FirstPageStore } from "./FirstPageStore";
 import { LoginPageStore } from "./LoginPage/LoginPageStore";
 import { RouterState, RouterStore } from "mobx-state-router";
-import { Routes } from "../routing/routes";
+import { RouteNames, Routes } from "src/routes";
 import { UserShellStore } from "./UserShellStore/UserShellStore";
 
 type AuthHeaderKeys = "X-User-Auth";
@@ -91,7 +91,7 @@ class LocalStoreChanger {
 
 export class RootStore {
   @observable optimizationStore = new LocalStoreChanger();
-  @observable routerStore = new RouterStore(this, Routes, new RouterState("not-found"));
+  @observable routerStore = new RouterStore(this, Routes, new RouterState(RouteNames.notFound));
   @observable loginPageStore = new LoginPageStore(this);
   @observable firstPageStore = new FirstPageStore(this);
   @observable userShellStore = new UserShellStore(this);

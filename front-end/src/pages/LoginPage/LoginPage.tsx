@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+﻿import React, { useCallback, useState } from "react";
 import { useRootStore } from "src/utils/rootStoreUtils";
 import { useObserver } from "mobx-react-lite";
 import ExaminationForm from "./LoginPageForm/ExaminationForm";
@@ -21,11 +21,21 @@ export const LoginPage = () => {
       <MusicComponent />
       {optimizationStore.thief !== null ? (
         <>
-          <FireButton text={"Login"} img={leftButton} onClick={() => setLoginForm(true)} position={'left'} open={loginForm} />
-          <div className={styles.loginPage__form}>
-            {loginForm ? <LoginForm store={store} /> : <SigInForm store={store} />}
-          </div>
-          <FireButton text={"I wanna too"} img={leftButton} onClick={() => setLoginForm(false)} position={'right'} open={!loginForm} />
+          <FireButton
+            text={"Login"}
+            img={leftButton}
+            onClick={() => setLoginForm(true)}
+            position={"left"}
+            open={loginForm}
+          />
+          {loginForm ? <LoginForm store={store} /> : <SigInForm store={store} />}
+          <FireButton
+            text={"I wanna too"}
+            img={leftButton}
+            onClick={() => setLoginForm(false)}
+            position={"right"}
+            open={!loginForm}
+          />
         </>
       ) : (
         <ExaminationForm />
