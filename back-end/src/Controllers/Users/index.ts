@@ -2,12 +2,10 @@
 import { UserTypes } from "../../Types/UserTypes";
 
 export const getUserOneFoe = (email: string) => {
-  pool.query("SELECT * FROM users WHERE email = $1", [email], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    return true;
-  });
+  return pool
+    .query("SELECT * FROM users WHERE email = $1", [email])
+    .then((r) => r.rows.length > 0)
+    .catch((e) => console.log(e));
 };
 
 const getUsers = (request: any, response: any) => {

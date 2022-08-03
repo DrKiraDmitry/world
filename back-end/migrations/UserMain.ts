@@ -3,10 +3,10 @@
 export async function up(pgm: MigrationBuilder): Promise<void> {
   pgm.createTable("users", {
     id: "id",
-    name: { type: "varchar(1000)", notNull: true },
+    name: { type: "varchar(1000)", notNull: false },
     email: { type: "varchar(1000)", notNull: true },
     password: { type: "varchar(1000)", notNull: true },
-    createdAt: {
+    created_at: {
       type: "timestamp",
       notNull: true,
       default: pgm.func("current_timestamp"),

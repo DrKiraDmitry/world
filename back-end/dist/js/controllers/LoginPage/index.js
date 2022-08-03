@@ -15,16 +15,19 @@ const postRegister = (request, response) => __awaiter(void 0, void 0, void 0, fu
     try {
         const { email, password } = request.body;
         if (!(email && password))
-            response.status(400).send("All input is required");
-        const oldUser = (0, Users_1.getUserOneFoe)(email);
+            return response.status(400).send("All input is required");
+        const oldUser = yield (0, Users_1.getUserOneFoe)(email);
+        console.log(email);
         if (Boolean(oldUser))
-            response.status(400).send("This user must be fuck");
-        const newUser = yield query_1.pool.query("INSERT INTO users (email, password, createdAt) VALUES ($1, $2, $3) RETURNING *", [email, password, new Date()], (error, results) => {
-            if (error) {
-                throw error;
-            }
-            response.status(201).send(`User added with ID: ${results.rows[0].id}`);
-        });
+            return response.status(400).send("This user must be fuck");
+        const newUser = yield query_1.pool
+            .query("INSERT INTO users (email, password, created_at) VALUES ($1, $2, $3) RETURNING *", [
+            email,
+            password,
+            new Date(),
+        ])
+            .then((r) => r.rows[0])
+            .catch((e) => console.log(e));
         response.status(201).json(newUser);
     }
     catch (e) {

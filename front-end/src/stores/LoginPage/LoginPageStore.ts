@@ -9,7 +9,27 @@ export class LoginPageStore {
 
   @action async login() {
     const data = {
-      name: this.email,
+      email: this.email,
+      password: this.password,
+    };
+
+    try {
+      const r = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((e) => e);
+      alert(r);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  @action async register() {
+    const data = {
+      email: this.email,
       password: this.password,
     };
 

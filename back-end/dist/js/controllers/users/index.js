@@ -3,12 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserOneFoe = void 0;
 const query_1 = require("../../Plagins/query");
 const getUserOneFoe = (email) => {
-    query_1.pool.query("SELECT * FROM users WHERE email = $1", [email], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        return true;
-    });
+    return query_1.pool
+        .query("SELECT * FROM users WHERE email = $1", [email])
+        .then((r) => r.rows.length > 0)
+        .catch((e) => console.log(e));
 };
 exports.getUserOneFoe = getUserOneFoe;
 const getUsers = (request, response) => {

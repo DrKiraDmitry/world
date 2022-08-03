@@ -5,7 +5,7 @@ import styles from "../LoginPage.module.sass";
 
 const SigInForm: FC<{ store: LoginPageStore }> = ({ store }) => {
   return (
-    <form className={styles.loginPage__form}>
+    <form className={styles.loginPage__form} onSubmit={(e) => e.preventDefault()}>
       <h1>Nice to meet you, Inmate</h1>
       <LabelInput
         className={styles.loginPage__form__input}
@@ -23,7 +23,9 @@ const SigInForm: FC<{ store: LoginPageStore }> = ({ store }) => {
         text={"Password"}
         onChange={(e) => (store.password = e.target.value)}
       />
-      <button className={styles.loginPage__form__button}>Every completed</button>
+      <button className={styles.loginPage__form__button} onClick={() => store.register()}>
+        Every completed
+      </button>
     </form>
   );
 };
