@@ -1,18 +1,32 @@
 ﻿import { Response, Request } from "express";
-import { getUserOneFoe } from "../Users";
 import { pool } from "../../Plagins/query";
+import jwt from "jsonwebtoken";
+import { UserTypes } from "../../Types/UserTypes";
 
 interface RegisterType {
   email: string;
   password: string;
 }
 
+const UserOneFoe = (email: string) => {
+  return pool
+    .query("SELECT * FROM users WHERE email = $1", [email])
+    .then((r) => r.rows.length > 0)
+    .catch((e) => console.log(e));
+};
+
+const UserOneRegister = (email: string, password: string): Promise<UserTypes> => {
+  return pool
+    .query("SELECT * FROM users WHERE email = $1 AND password = $2", [email, password])
+    .then((r) => (r.rows.length > 0 ? r.rows[0] : null))
+    .catch((e) => console.log(e));
+};
+
 const postRegister = async (request: Request, response: Response) => {
   try {
     const { email, password } = request.body as RegisterType;
     if (!(email && password)) return response.status(400).send("All input is required");
-    const oldUser = await getUserOneFoe(email);
-    console.log(email);
+    const oldUser = await UserOneFoe(email);
     if (Boolean(oldUser)) return response.status(400).send("This user must be fuck");
     const newUser = await pool
       .query("INSERT INTO users (email, password, created_at) VALUES ($1, $2, $3) RETURNING *", [
@@ -28,6 +42,24 @@ const postRegister = async (request: Request, response: Response) => {
   }
 };
 
+const postLogin = async (request: Request, response: Response) => {
+  try {
+    const { email, password } = request.body as RegisterType;
+    if (!(email && password)) return response.status(400).send("All input is required");
+    const user = await UserOneRegister(email, password);
+    if (!user) return response.status(400).send("Unknown");
+    if (!process.env["TOKEN_KEY"]) return response.status(400).send("Bad token");
+    const token = jwt.sign({ id: user.id }, process.env.TOKEN_KEY, {
+      expiresIn: "2h",
+    });
+    return response.status(200).json({ id: user.id, email: user.email, token });
+  } catch (e) {
+    console.log(e);
+    return response.status(404).json({ message: "User not found" });
+  }
+};
+
 export default {
   postRegister,
+  postLogin,
 };

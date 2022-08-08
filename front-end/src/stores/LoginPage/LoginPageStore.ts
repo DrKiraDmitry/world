@@ -21,7 +21,6 @@ export class LoginPageStore {
           "Content-Type": "application/json",
         },
       }).then((e) => e);
-      alert(r);
     } catch (e) {
       console.log(e);
     }
@@ -41,9 +40,13 @@ export class LoginPageStore {
           "Content-Type": "application/json",
         },
       }).then((e) => e);
-      alert(r);
     } catch (e) {
       console.log(e);
     }
+  }
+
+  @action clear() {
+    this.email = "";
+    this.password = "";
   }
 }

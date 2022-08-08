@@ -1,13 +1,6 @@
 ﻿import { pool } from "../../Plagins/query";
 import { UserTypes } from "../../Types/UserTypes";
 
-export const getUserOneFoe = (email: string) => {
-  return pool
-    .query("SELECT * FROM users WHERE email = $1", [email])
-    .then((r) => r.rows.length > 0)
-    .catch((e) => console.log(e));
-};
-
 const getUsers = (request: any, response: any) => {
   return pool.query("SELECT * FROM users ORDER BY id ASC", (error, results) => {
     if (error) {
