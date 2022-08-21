@@ -8,6 +8,7 @@ import { RouteViewMap } from "./routes";
 import "mobx-react-lite/batchingForReactDom";
 import { UserShell } from "src/components/Shell/UserShell/UserShell";
 import { AnonShell } from "./components/Shell/AnonShell/AnonShell";
+import { useObserver } from "mobx-react-lite";
 
 let root: RootStore;
 
@@ -20,16 +21,15 @@ const ensureInitialized = () => {
 
 export const App = observer(() => {
   ensureInitialized();
-  const [cookie, setCookie] = useState(false);
   return (
     <Provider rootStore={root}>
       <button style={{ position: "fixed", left: 0 }} onClick={() => root.optimizationStore.clear()}>
         Clear
       </button>
-      {cookie ? (
+      {root.userRpc.isAuthorized ? (
         <UserShell>
           <LoadingIf isLoading={root.routerStore.isTransitioning}>
-            {/*<RouterView routerStore={root.routerStore} viewMap={RouteViewMap} />*/}
+            <RouterView routerStore={root.routerStore} viewMap={RouteViewMap} />
           </LoadingIf>
         </UserShell>
       ) : (

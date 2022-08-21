@@ -1,6 +1,8 @@
 ﻿import { action, observable } from "mobx";
 import { RootStore } from "src/stores/RootStore";
 import { json } from "stream/consumers";
+import { RouterState } from "mobx-state-router";
+import { RouteNames } from "../../routes";
 
 export class UserShellStore {
   @observable one: boolean = true;
@@ -12,20 +14,8 @@ export class UserShellStore {
     this.one = !this.one;
   }
 
-  @action testCopy() {
-    const food = { app: "1", bpp: { aap: 1, bbp: 2 } };
-    const foodNew = JSON.parse(JSON.stringify(food));
-    foodNew.bpp.aap = 2;
-    console.log(food, foodNew);
-  }
-
-  @action
-  async getTodos() {
-    try {
-      const r = await fetch("http://localhost:4000").then((e) => e.json());
-      this.data = r;
-    } catch (e) {
-      alert(e);
-    }
+  @action async LogOut() {
+    this.rootStore.userRpc.resetUserToken();
+    await this.rootStore.routerStore.goTo(new RouterState(RouteNames.welcome));
   }
 }

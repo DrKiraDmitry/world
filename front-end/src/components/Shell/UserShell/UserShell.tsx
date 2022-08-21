@@ -12,7 +12,7 @@ const Menu: FC<{ store: UserShellStore }> = ({ store }) => {
         <li onClick={() => store.Switch()}>
           <button>Disable Map</button>
         </li>
-        <li onClick={() => store.testCopy()}>
+        <li onClick={() => store.LogOut()}>
           <button>LogOut</button>
         </li>
       </ul>
@@ -25,7 +25,6 @@ export const UserShell: FC = ({ children }) => {
   return useObserver(() => (
     <div style={{ height: `100vh`, width: `100vw` }}>
       <Menu store={store} />
-      {store.one && <ThreeScene />}
       {children}
     </div>
   ));

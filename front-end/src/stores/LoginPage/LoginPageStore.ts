@@ -1,5 +1,7 @@
 ﻿import { action, observable } from "mobx";
 import { RootStore } from "src/stores/RootStore";
+import { RouteNames } from "../../routes";
+import { RouterState } from "mobx-state-router";
 
 export class LoginPageStore {
   @observable email: string = "";
@@ -14,13 +16,8 @@ export class LoginPageStore {
     };
 
     try {
-      const r = await fetch("http://localhost:4000/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((e) => e);
+      const r = await this.rootStore.userRpc.authorized(data);
+      await this.rootStore.routerStore.goTo(new RouterState(RouteNames.index));
     } catch (e) {
       console.log(e);
     }
@@ -33,13 +30,8 @@ export class LoginPageStore {
     };
 
     try {
-      const r = await fetch("http://localhost:4000/register", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((e) => e);
+      const r = await this.rootStore.userRpc.send("/register", data);
+      await this.rootStore.routerStore.goTo(new RouterState(RouteNames.index));
     } catch (e) {
       console.log(e);
     }

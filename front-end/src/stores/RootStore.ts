@@ -4,11 +4,10 @@ import { LoginPageStore } from "./LoginPage/LoginPageStore";
 import { RouterState, RouterStore } from "mobx-state-router";
 import { RouteNames, Routes } from "src/routes";
 import { UserShellStore } from "./UserShellStore/UserShellStore";
-import { LocalStoreChanger } from "./ETCStore";
+import { LocalStoreChanger, SecureCoreApi } from "./ETCStore";
 
 export class RootStore {
-  @observable anonRpc: any;
-  @observable userRpc: any;
+  @observable userRpc = new SecureCoreApi("http://localhost:4000", "X-User-Auth");
   @observable optimizationStore = new LocalStoreChanger();
   @observable routerStore = new RouterStore(this, Routes, new RouterState(RouteNames.notFound));
   @observable loginPageStore = new LoginPageStore(this);

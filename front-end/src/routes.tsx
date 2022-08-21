@@ -9,8 +9,16 @@ export interface RouteTransitionHook {
   (root: RootStore, next: () => Promise<void>, to: RouterState, from: RouterState): Promise<void> | void;
 }
 
-const UserAllowOnlyFilledProfilesHook: RouteTransitionHook = async (root) => {
-  throw new RouterState(RouteNames.welcome);
+const UserAllowHook: RouteTransitionHook = async (root) => {
+  if (!root.userRpc.isAuthorized) {
+    throw new RouterState(RouteNames.welcome);
+  }
+};
+
+const UserAuthorizeHook: RouteTransitionHook = async (root) => {
+  if (root.userRpc.isAuthorized) {
+    throw new RouterState(RouteNames.index);
+  }
 };
 
 export enum RouteNames {
@@ -33,10 +41,14 @@ export const Routes: Route[] = convertRoutes([
   {
     pattern: "/",
     name: RouteNames.index,
-    hooks: [UserAllowOnlyFilledProfilesHook],
+    hooks: [UserAllowHook],
   },
   {
     pattern: "/welcome",
     name: RouteNames.welcome,
+    hooks: [UserAuthorizeHook],
+    onEnter: (root) => {
+      root.loginPageStore.clear();
+    },
   },
 ]);
