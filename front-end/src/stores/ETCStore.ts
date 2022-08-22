@@ -1,4 +1,5 @@
 ﻿import { action, computed, observable } from "mobx";
+import { json } from "stream/consumers";
 
 type AuthHeaderKeys = "X-User-Auth";
 
@@ -18,7 +19,7 @@ export class SecureCoreApi {
     this.token = window.localStorage.getItem(localStorageKey);
   }
 
-  public send<T>(path: string, body?: T, method?: string, headers?: Headers) {
+  public send<T>(path: string, body?: T | null, method?: "GET" | "POST", headers?: Headers) {
     return fetch(`${this.baseUrl}${path}`, {
       method: method ? method : "POST",
       body: body ? JSON.stringify(body) : null,
@@ -26,17 +27,17 @@ export class SecureCoreApi {
         ? headers
         : {
             "Content-Type": "application/json",
+            Authorization: this.token || "",
           },
     })
       .then((r) => r.json())
       .catch((e) => e);
   }
 
-  @action async authorized(data: any) {
+  @action async authorized(type: "/login" | "/register", data: any) {
     try {
-      const r = await this.send("/login", data);
-      window.localStorage.setItem("auth-token:X-User-Auth", r.token);
-      this.token = r.token;
+      const r = await this.send(type, data);
+      this.setUserToken(r.token);
       return r;
     } catch (e) {
       console.log(e);

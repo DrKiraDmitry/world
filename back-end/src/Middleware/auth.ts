@@ -3,13 +3,11 @@
 const tokenKey = process.env["TOKEN_KEY"];
 
 export function authenticateToken(req: any, res: any, next: any) {
-  console.log(req);
-  const authHeader = req.headers["Authorized"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers["authorization"];
 
-  if (token == null) return res.sendStatus(401);
+  if (authHeader == null) return res.sendStatus(401);
 
-  jwt.verify(token, tokenKey as string, (err: any, user: any) => {
+  jwt.verify(authHeader, tokenKey as string, (err: any, user: any) => {
     console.log(err);
 
     if (err) return res.sendStatus(403);

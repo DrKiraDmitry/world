@@ -42,6 +42,9 @@ export const Routes: Route[] = convertRoutes([
     pattern: "/",
     name: RouteNames.index,
     hooks: [UserAllowHook],
+    onEnter: async (root) => {
+      if (root.userShellStore.data === null) await root.userShellStore.GetUser();
+    },
   },
   {
     pattern: "/welcome",

@@ -1,0 +1,19 @@
+﻿@import "src/styles/mixins"
+
+.userInfo__list
+  display: flex
+  flex-direction: column
+  margin: auto 2rem auto auto
+  min-width: 20vw
+  @include persona-box
+  padding: 2rem
+  font-size: 2rem
+  &__item
+    display: flex
+    justify-content: space-between
+    
+    &:not(:last-child)
+      margin-bottom: 1rem
+    
+    
+    

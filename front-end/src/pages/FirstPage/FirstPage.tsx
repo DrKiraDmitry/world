@@ -1,7 +1,32 @@
 ﻿import React from "react";
 import { useRootStore } from "src/utils/rootStoreUtils";
+import { useObserver } from "mobx-react-lite";
+import UserInfoBlockStyle from "./UserInfoBlock.module.sass";
+
+export const UserInfoBlock = () => {
+  const { userShellStore: storeUser } = useRootStore();
+  const Key = Object.keys(storeUser.data || {});
+  const Val = Object.values(storeUser.data || {});
+  return useObserver(() => (
+    <div className={`${UserInfoBlockStyle.userInfo__list}`}>
+      {Key.map((el, i) => {
+        if (Val[i]) {
+          return (
+            <div className={`${UserInfoBlockStyle.userInfo__list__item}`}>
+              {el}: <span>{Val[i]}</span>
+            </div>
+          );
+        }
+        return;
+      })}
+    </div>
+  ));
+};
 
 export const FirstPage = () => {
-  const { firstPageStore: store } = useRootStore();
-  return <div></div>;
+  return (
+    <div className={`flex`} style={{ height: `100%` }}>
+      <UserInfoBlock />
+    </div>
+  );
 };

@@ -9,32 +9,26 @@ export class LoginPageStore {
 
   constructor(public rootStore: RootStore) {}
 
-  @action async login() {
+  @action async LogRegRPC(path: "/login" | "/register") {
     const data = {
       email: this.email,
       password: this.password,
     };
 
     try {
-      const r = await this.rootStore.userRpc.authorized(data);
+      await this.rootStore.userRpc.authorized(path, data);
       await this.rootStore.routerStore.goTo(new RouterState(RouteNames.index));
     } catch (e) {
       console.log(e);
     }
   }
 
-  @action async register() {
-    const data = {
-      email: this.email,
-      password: this.password,
-    };
+  @action async login() {
+    await this.LogRegRPC("/login");
+  }
 
-    try {
-      const r = await this.rootStore.userRpc.send("/register", data);
-      await this.rootStore.routerStore.goTo(new RouterState(RouteNames.index));
-    } catch (e) {
-      console.log(e);
-    }
+  @action async register() {
+    await this.LogRegRPC("/register");
   }
 
   @action clear() {
