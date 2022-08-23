@@ -33,17 +33,16 @@ const ThiefBoard__GetPage: FC<{ store: ThiefBoardStore }> = ({ store }) => {
 
 const ThiefBoard = () => {
   const { thiefBoardStore: store } = useRootStore();
-  const [textType, setTextType] = useState(true);
   return useObserver(() => (
     <div className={`${styles.TB}`}>
       <div className={`${styles.TBSetting}`}>
         <ThiefBoard__GetPage store={store} />
       </div>
       <div className={`TBDisplay`}>
-        <div className={`TBDisplay__header`}>
-          <button onClick={() => setTextType(true)}>Original</button>
-          <button onClick={() => setTextType(false)}>Result</button>
-        </div>
+        {/*<div className={`TBDisplay__header`}>*/}
+        {/*  <button onClick={() => setTextType(true)}>Original</button>*/}
+        {/*  <button onClick={() => setTextType(false)}>Result</button>*/}
+        {/*</div>*/}
         <div className={`TBDisplay__body`}>{store.OriginalHtml}</div>
       </div>
     </div>
