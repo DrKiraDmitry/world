@@ -16,6 +16,11 @@ const Menu: FC<{ store: UserShellStore }> = ({ store }) => {
             <button>Home</button>
           </RouterLink>
         </li>
+        <li>
+          <RouterLink routeName={RouteNames.pageThief}>
+            <button>Page Thief</button>
+          </RouterLink>
+        </li>
         <li onClick={() => store.LogOut()}>
           <button>LogOut</button>
         </li>
@@ -28,7 +33,7 @@ export const UserShell: FC = ({ children }) => {
   const { userShellStore: store } = useRootStore();
   return useObserver(() => (
     <div style={{ height: `100vh`, width: `100vw` }}>
-      <Menu store={store} />
+      {store.menuShow && <Menu store={store} />}
       {children}
     </div>
   ));

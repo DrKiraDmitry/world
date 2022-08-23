@@ -5,14 +5,10 @@ import { RouteNames } from "src/routes";
 import { UserTypes } from "src/types/back/UserTypes";
 
 export class UserShellStore {
-  @observable one: boolean = true;
+  @observable menuShow = true;
   @observable data: UserTypes | null = null;
 
   constructor(public rootStore: RootStore) {}
-
-  @action Switch() {
-    this.one = !this.one;
-  }
 
   @action async GetUser() {
     try {

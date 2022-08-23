@@ -13,14 +13,14 @@ const LoginForm: FC<{ store: LoginPageStore }> = ({ store }) => {
         styleOnLabel={styles.loginPage__form__label}
         type={"text"}
         placeholder={"Place for your email"}
-        text={"Email"}
+        title={"Email"}
         onChange={(e) => (store.email = e.target.value)}
       />
       <LabelInput
         className={styles.loginPage__form__input}
         styleOnLabel={styles.loginPage__form__label}
         type={"password"}
-        text={"Password"}
+        title={"Password"}
         placeholder={"Place for your password"}
         onChange={(e) => (store.password = e.target.value)}
       />

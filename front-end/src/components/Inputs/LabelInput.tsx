@@ -6,11 +6,11 @@ interface labelInput extends React.DetailedHTMLProps<React.InputHTMLAttributes<H
 }
 
 export const LabelInput = (props: labelInput) => {
-  const { styleOnLabel, text, ...rest } = props;
+  const { styleOnLabel, title, ...rest } = props;
   return (
     <label className={styleOnLabel}>
-      <div>{text}</div>
-      <input {...rest} />
+      <div>{title}</div>
+      <input {...rest} title={props.value?.toString()} />
     </label>
   );
 };

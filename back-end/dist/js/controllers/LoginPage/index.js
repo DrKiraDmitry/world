@@ -63,7 +63,7 @@ const postLogin = (request, response) => __awaiter(void 0, void 0, void 0, funct
         if (!(yield bcrypt_1.default.compare(password, user.password)))
             return response.status(400).send("Password not equal");
         const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.TOKEN_KEY, {
-            expiresIn: "2h",
+            expiresIn: undefined,
         });
         return response.status(200).json({ id: user.id, email: user.email, token });
     }

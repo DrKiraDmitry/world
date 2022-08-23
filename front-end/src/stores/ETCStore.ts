@@ -20,9 +20,10 @@ export class SecureCoreApi {
   }
 
   public send<T>(path: string, body?: T | null, method?: "GET" | "POST", headers?: Headers) {
+    console.log(JSON.stringify(body) ? JSON.stringify(body) : null);
     return fetch(`${this.baseUrl}${path}`, {
       method: method ? method : "POST",
-      body: body ? JSON.stringify(body) : null,
+      body: JSON.stringify(body) ? JSON.stringify(body) : null,
       headers: headers
         ? headers
         : {

@@ -11,6 +11,7 @@ const Users_1 = __importDefault(require("./Controllers/Users"));
 const LoginPage_1 = __importDefault(require("./Controllers/LoginPage"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const auth_1 = require("./Middleware/auth");
+const ThiefPage_1 = require("./Controllers/ThiefPage/ThiefPage");
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 4000;
 app.use((0, cors_1.default)());
@@ -25,6 +26,7 @@ app.put("/users/:id", Users_1.default.updateUser);
 app.delete("/users/:id", Users_1.default.deleteUser);
 app.post("/register", LoginPage_1.default.postRegister);
 app.post("/login", LoginPage_1.default.postLogin);
+app.post("/thief-page", ThiefPage_1.getThiefPage);
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}.`);
 });

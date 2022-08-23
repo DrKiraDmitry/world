@@ -6,6 +6,8 @@ import db from "./Controllers/Users";
 import LP from "./Controllers/LoginPage";
 import bp from "body-parser";
 import { authenticateToken } from "./Middleware/auth";
+import { ThiefPageTypes } from "./Types/ThiefPageTypes";
+import { getThiefPage } from "./Controllers/ThiefPage/ThiefPage";
 
 const app: Express = express();
 
@@ -24,6 +26,8 @@ app.put("/users/:id", db.updateUser);
 app.delete("/users/:id", db.deleteUser);
 app.post("/register", LP.postRegister);
 app.post("/login", LP.postLogin);
+
+app.post<any, string, ThiefPageTypes>("/thief-page", getThiefPage);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}.`);

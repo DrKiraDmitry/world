@@ -4,6 +4,7 @@ import { convertRoutes } from "src/routing/route";
 import { FirstPage } from "src/pages/FirstPage/FirstPage";
 import { LoginPage } from "src/pages/LoginPage/LoginPage";
 import { RootStore } from "./stores/RootStore";
+import { PageThiefPage } from "./pages/PageThiefPage/PageThiefPage";
 
 export interface RouteTransitionHook {
   (root: RootStore, next: () => Promise<void>, to: RouterState, from: RouterState): Promise<void> | void;
@@ -21,16 +22,26 @@ const UserAuthorizeHook: RouteTransitionHook = async (root) => {
   }
 };
 
+const ShowMenu: RouteTransitionHook = (root) => {
+  root.userShellStore.menuShow = true;
+};
+
+const HideMenu: RouteTransitionHook = (root) => {
+  root.userShellStore.menuShow = false;
+};
+
 export enum RouteNames {
   notFound = "not-found",
   index = "index",
   welcome = "welcome",
+  pageThief = "pageThief",
 }
 
 export const RouteViewMap = {
   [RouteNames.notFound]: <div>404 - not found</div>,
   [RouteNames.index]: <FirstPage />,
   [RouteNames.welcome]: <LoginPage />,
+  [RouteNames.pageThief]: <PageThiefPage />,
 };
 
 export const Routes: Route[] = convertRoutes([
@@ -41,7 +52,7 @@ export const Routes: Route[] = convertRoutes([
   {
     pattern: "/",
     name: RouteNames.index,
-    hooks: [UserAllowHook],
+    hooks: [UserAllowHook, ShowMenu],
     onEnter: async (root) => {
       if (root.userShellStore.data === null) await root.userShellStore.GetUser();
     },
@@ -53,5 +64,10 @@ export const Routes: Route[] = convertRoutes([
     onEnter: (root) => {
       root.loginPageStore.clear();
     },
+  },
+  {
+    pattern: "/page-thief",
+    name: RouteNames.pageThief,
+    hooks: [UserAllowHook, HideMenu],
   },
 ]);

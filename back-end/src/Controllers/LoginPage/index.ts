@@ -54,7 +54,7 @@ const postLogin = async (request: Request, response: Response) => {
     if (!process.env["TOKEN_KEY"]) return response.status(400).send("Bad token");
     if (!(await bcrypt.compare(password, user.password))) return response.status(400).send("Password not equal");
     const token = jwt.sign({ id: user.id }, process.env.TOKEN_KEY, {
-      expiresIn: "2h",
+      expiresIn: undefined,
     });
     return response.status(200).json({ id: user.id, email: user.email, token });
   } catch (e) {

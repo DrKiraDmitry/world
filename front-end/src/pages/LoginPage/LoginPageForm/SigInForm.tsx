@@ -12,7 +12,7 @@ const SigInForm: FC<{ store: LoginPageStore }> = ({ store }) => {
         styleOnLabel={styles.loginPage__form__label}
         type={"text"}
         placeholder={"Place for your email"}
-        text={"Email"}
+        title={"Email"}
         onChange={(e) => (store.email = e.target.value)}
       />
       <LabelInput
@@ -20,7 +20,7 @@ const SigInForm: FC<{ store: LoginPageStore }> = ({ store }) => {
         styleOnLabel={styles.loginPage__form__label}
         type={"password"}
         placeholder={"Place for your password"}
-        text={"Password"}
+        title={"Password"}
         onChange={(e) => (store.password = e.target.value)}
       />
       <button className={styles.loginPage__form__button} onClick={() => store.register()}>
