@@ -1,6 +1,6 @@
 ﻿import { RootStore } from "../RootStore";
 import { action, observable } from "mobx";
-import { Text } from "./Text";
+import { Text, PrefixesAll } from "./Text";
 import { Algorithms } from "./Algorithms";
 
 export class ThiefBoardStore extends Algorithms {
@@ -14,15 +14,25 @@ export class ThiefBoardStore extends Algorithms {
     super();
   }
 
-  SingleRooted(text: string[]) {
-    return text;
+  RemovePrefixes(text: string[]) {
+    const buffer: string[] = [];
+    const reg = new RegExp(
+      PrefixesAll.reduce((acc, el, i) => (PrefixesAll.length - 1 > i ? acc + `^${el}|` : acc + `^${el}`), "")
+    );
+    console.log(reg);
+    for (let i = 0; i < text.length; i++) {
+      buffer.push(text[i].replace(reg, ""));
+    }
+    return buffer;
   }
 
   @action MainFunc() {
     const first = this.HowMachWords(this.OriginalHtml);
-    const second = this.SingleRooted(first.reduce((acc, el) => [...acc, el.name], [] as string[]));
+    const unic = first.reduce((acc, el) => [...acc, el.name], [] as string[]);
+    const prefixRemove = this.RemovePrefixes(unic);
+    // const second = this.SingleRooted(unic);
 
-    this.ResultHtml = JSON.stringify(second, null, "\t");
+    this.ResultHtml = JSON.stringify(prefixRemove, null, "\t");
   }
 
   @action async takePage() {

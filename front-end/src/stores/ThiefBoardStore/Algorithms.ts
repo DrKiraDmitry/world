@@ -27,4 +27,12 @@ export class Algorithms {
     });
     return arraySort;
   }
+
+  //Для поиска однокоренных слов TODO
+  SingleRooted(text: string[]) {
+    const oneRoot: string[][] = [];
+    let buffer = [];
+    for (let i = 0; i >= text.length; i++) {}
+    return oneRoot;
+  }
 }
