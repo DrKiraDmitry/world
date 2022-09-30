@@ -1,5 +1,20 @@
 ﻿@import "varibles"
 
+@mixin persona-button
+  font-size: 2rem
+  color: $per-black
+  background: $per-white
+  width: 100%
+  white-space: nowrap
+  transition: background .3s
+  padding: 1rem
+  font-weight: bold
+  &_active
+    background: $per-red
+  &:hover
+    background: $per-red
+
+
 @mixin persona-box
   box-shadow: 0 0 0 10px black
   background: $per-black

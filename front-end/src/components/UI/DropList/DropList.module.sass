@@ -1,0 +1,17 @@
+﻿@import "./src/styles/mixins"
+
+.DropList 
+  &__button
+    @include persona-button
+    justify-content: space-between
+    display: flex
+      
+  &__list
+    margin: 0
+    list-style: none
+    padding: 0
+    display: flex
+    flex-direction: column
+    li
+      width: auto
+      cursor: pointer

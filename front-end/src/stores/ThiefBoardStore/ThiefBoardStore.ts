@@ -3,13 +3,23 @@ import { action, observable } from "mobx";
 import { Text, PrefixesAll } from "./Text";
 import { Algorithms } from "./Algorithms";
 
+export enum textTypeEnum {
+  original = "Original",
+  result = "Result",
+  stats = "Stats",
+}
+
+export const textTypeArray: any[] = Object.values(textTypeEnum);
+
 export class ThiefBoardStore extends Algorithms {
   @observable ResultHtml: string = "";
   @observable OriginalHtml: string = Text;
-  @observable textType = false;
+  @observable Stats: { name: string | number; val: string | number; list?: any[] }[] = [];
+  @observable textType: textTypeEnum = textTypeEnum.original;
   @observable ThiefLink: string =
     "https://novayagazeta.ru/articles/2022/07/28/rkn-trebuet-annulirovat-litsenziiu-smi-u-saita-novoi-gazety";
   @observable ArticleTag: string = "#materialBlock_0";
+
   constructor(public rootStore: RootStore) {
     super();
   }
@@ -26,16 +36,15 @@ export class ThiefBoardStore extends Algorithms {
     return buffer;
   }
 
-  @action MainFunc() {
+  @action StatsFunc() {
     const first = this.HowMachWords(this.OriginalHtml);
-    const unic = first.reduce((acc, el) => [...acc, el.name], [] as string[]);
-    const prefixRemove = this.RemovePrefixes(unic);
-    // const second = this.SingleRooted(unic);
-
-    this.ResultHtml = JSON.stringify(prefixRemove, null, "\t");
+    this.Stats = [first];
   }
 
-  @action async takePage() {
+  @action MainFunc() {}
+
+  @action
+  async takePage() {
     const data = {
       link: this.ThiefLink,
       articleTag: this.ArticleTag,

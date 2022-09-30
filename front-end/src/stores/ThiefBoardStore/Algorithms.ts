@@ -25,7 +25,11 @@ export class Algorithms {
     const arraySort = arrayIncrement.sort((a, b) => {
       return b.val - a.val;
     });
-    return arraySort;
+    return {
+      name: "HowMachWords",
+      val: arraySort.length,
+      list: arraySort,
+    };
   }
 
   //Для поиска однокоренных слов TODO

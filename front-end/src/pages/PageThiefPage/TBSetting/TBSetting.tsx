@@ -1,5 +1,5 @@
 ﻿import React, { FC } from "react";
-import { ThiefBoardStore } from "src/stores/ThiefBoardStore/ThiefBoardStore";
+import { textTypeArray, ThiefBoardStore } from "src/stores/ThiefBoardStore/ThiefBoardStore";
 import { LabelInput } from "src/components/Inputs/LabelInput";
 import styles from "./TBSetting.module.sass";
 
@@ -32,12 +32,15 @@ const TBSetting__GetPage: FC<TBSetting__type> = ({ store }) => {
 const TBSetting__TextView: FC<TBSetting__type> = ({ store }) => {
   return (
     <div className={`${styles.TBSetting__textView} ${styles.TBSetting__componentBox}`}>
-      <button className={styles.TBSetting__button} onClick={() => (store.textType = true)}>
-        Original
-      </button>
-      <button className={styles.TBSetting__button} onClick={() => (store.textType = false)}>
-        Result
-      </button>
+      {textTypeArray.map((el, i) => (
+        <button
+          key={"TBSetting modal Button" + el + i}
+          className={styles.TBSetting__button}
+          onClick={() => (store.textType = el)}
+        >
+          {el}
+        </button>
+      ))}
     </div>
   );
 };
@@ -46,7 +49,7 @@ const TBSetting__Algorithms: FC<TBSetting__type> = ({ store }) => {
   return (
     <div className={`${styles.TBSetting__label} ${styles.TBSetting__componentBox}`}>
       <div>Algorithms</div>
-      <button className={styles.TBSetting__button} onClick={() => store.MainFunc()}>
+      <button className={styles.TBSetting__button} onClick={() => store.StatsFunc()}>
         How mach Words
       </button>
     </div>

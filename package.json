@@ -5,7 +5,13 @@
   "repository": "git@github.com:DrKiraDmitry/world.git",
   "author": "dmitry <stalker2807sky@yandex.ru>",
   "license": "MIT",
+  "scripts": {
+    "front-end": "cd front-end && npm front",
+    "back-end": "cd back-end && npm run back",
+    "start": "concurrently \"npm run front-end\" \"npm run back-end\""
+  },
   "devDependencies": {
-    "prettier": "2.2.1"
+    "prettier": "2.2.1",
+    "concurrently": "7.4.0"
   }
 }
