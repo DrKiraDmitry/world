@@ -69,5 +69,8 @@ export const Routes: Route[] = convertRoutes([
     pattern: "/page-thief",
     name: RouteNames.pageThief,
     hooks: [UserAllowHook, HideMenu],
+    onEnter: (root) => {
+      root.thiefBoardStore.StatsFunc();
+    },
   },
 ]);

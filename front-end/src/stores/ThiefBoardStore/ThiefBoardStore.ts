@@ -2,6 +2,7 @@
 import { action, observable } from "mobx";
 import { Text, PrefixesAll } from "./Text";
 import { Algorithms } from "./Algorithms";
+import { Stats } from "./Stats";
 
 export enum textTypeEnum {
   original = "Original",
@@ -15,7 +16,7 @@ export class ThiefBoardStore extends Algorithms {
   @observable ResultHtml: string = "";
   @observable OriginalHtml: string = Text;
   @observable Stats: { name: string | number; val: string | number; list?: any[] }[] = [];
-  @observable textType: textTypeEnum = textTypeEnum.original;
+  @observable textType: textTypeEnum = textTypeEnum.stats;
   @observable ThiefLink: string =
     "https://novayagazeta.ru/articles/2022/07/28/rkn-trebuet-annulirovat-litsenziiu-smi-u-saita-novoi-gazety";
   @observable ArticleTag: string = "#materialBlock_0";
@@ -24,21 +25,8 @@ export class ThiefBoardStore extends Algorithms {
     super();
   }
 
-  RemovePrefixes(text: string[]) {
-    const buffer: string[] = [];
-    const reg = new RegExp(
-      PrefixesAll.reduce((acc, el, i) => (PrefixesAll.length - 1 > i ? acc + `^${el}|` : acc + `^${el}`), "")
-    );
-    console.log(reg);
-    for (let i = 0; i < text.length; i++) {
-      buffer.push(text[i].replace(reg, ""));
-    }
-    return buffer;
-  }
-
   @action StatsFunc() {
-    const first = this.HowMachWords(this.OriginalHtml);
-    this.Stats = [first];
+    this.Stats = Stats(this.OriginalHtml);
   }
 
   @action MainFunc() {}

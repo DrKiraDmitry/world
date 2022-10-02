@@ -1,10 +1,37 @@
 ﻿import React, { FC, useState } from "react";
 import styles from "./DropList.module.sass";
 
-type DropListProps = {
-  items?: { name: string | number; val: string | number }[];
+type DropListItemObj = { name: string | number; val: string | number };
+
+export type DropListProps = {
+  items?: DropListItemObj[] | string[];
   name: string | number;
   val: string | number;
+};
+
+const DropListItemString: FC<{ items: string[] }> = ({ items }) => {
+  return (
+    <>
+      {items.map((el, i) => (
+        <li key={el + i} className={styles.DropList__button}>
+          <span>{el}</span>
+        </li>
+      ))}
+    </>
+  );
+};
+
+const DropListItemObj: FC<{ items: DropListItemObj[] }> = ({ items }) => {
+  return (
+    <>
+      {items.map((el, i) => (
+        <li key={el.name} className={styles.DropList__button}>
+          <span>{el.name}</span>
+          <span>{el.val}</span>
+        </li>
+      ))}
+    </>
+  );
 };
 
 export const DropList: FC<DropListProps> = ({ items, name, val }) => {
@@ -15,17 +42,20 @@ export const DropList: FC<DropListProps> = ({ items, name, val }) => {
         className={styles.DropList__button + ` ${open && styles.DropList__button_active}`}
         onClick={() => items && setOpen(!open)}
       >
-        <span>{name}</span>
+        <span>
+          {name} {JSON.stringify(items)}
+        </span>
         <span>{val}</span>
       </button>
+
       {open && (
         <ul className={styles.DropList__list}>
-          {items?.map((el, i) => (
-            <li key={name.toString() + val + el.name} className={styles.DropList__button}>
-              <span>{el.name}</span>
-              <span>{el.val}</span>
-            </li>
-          ))}
+          {items &&
+            (typeof items[0] === "string" ? (
+              <DropListItemString items={items as string[]} />
+            ) : (
+              <DropListItemObj items={items as DropListItemObj[]} />
+            ))}
         </ul>
       )}
     </>
