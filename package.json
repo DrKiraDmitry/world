@@ -6,7 +6,7 @@
   "author": "dmitry <stalker2807sky@yandex.ru>",
   "license": "MIT",
   "scripts": {
-    "front-end": "cd front-end && npm front",
+    "front-end": "cd front-end && npm run front",
     "back-end": "cd back-end && npm run back",
     "start": "concurrently \"npm run front-end\" \"npm run back-end\""
   },

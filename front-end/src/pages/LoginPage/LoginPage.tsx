@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useState } from "react";
+﻿import React, { useState } from "react";
 import { useRootStore } from "src/utils/rootStoreUtils";
 import { useObserver } from "mobx-react-lite";
 import ExaminationForm from "./LoginPageForm/ExaminationForm";

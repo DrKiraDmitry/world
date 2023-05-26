@@ -5,10 +5,8 @@ import UserInfoBlockStyle from "./UserInfoBlock.module.sass";
 
 export const UserInfoBlock = () => {
   const { userShellStore: storeUser } = useRootStore();
-  console.time("1");
   const Key = Object.keys(storeUser.data || {});
   const Val = Object.values(storeUser.data || {});
-  console.timeEnd("1");
   return useObserver(() => (
     <div className={`${UserInfoBlockStyle.userInfo__list}`}>
       {Key.map((el, i) => {
