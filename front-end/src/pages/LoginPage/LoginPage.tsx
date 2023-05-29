@@ -10,16 +10,16 @@ import { FireButton } from "src/components/Animation/Fire/AnimationFireComponent
 import leftButton from "./loginButtonLeft.svg";
 
 export const LoginPage = () => {
-  const { loginPageStore: store, optimizationStore } = useRootStore();
+  const { loginPageStore: store } = useRootStore();
   const [loginForm, setLoginForm] = useState(true);
   return useObserver(() => (
-    <div
-      className={`${styles.loginPage__container} ${
-        loginForm ? styles.loginPage__container_1 : styles.loginPage__container_2
-      } `}
-    >
+    <>
       <MusicComponent />
-      {optimizationStore.thief !== null ? (
+      <div
+        className={`${styles.loginPage__container} ${
+          loginForm ? styles.loginPage__container_1 : styles.loginPage__container_2
+        } `}
+      >
         <>
           <FireButton
             text={"Login"}
@@ -37,9 +37,7 @@ export const LoginPage = () => {
             open={!loginForm}
           />
         </>
-      ) : (
-        <ExaminationForm />
-      )}
-    </div>
+      </div>
+    </>
   ));
 };

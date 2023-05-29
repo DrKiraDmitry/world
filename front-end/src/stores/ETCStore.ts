@@ -9,7 +9,7 @@ export class SecureCoreApi {
   private readonly localStorageKey;
 
   @computed get isAuthorized() {
-    return this.token != null;
+    return this.token !== null;
   }
 
   constructor(baseUrl: string, authHeaderKey: AuthHeaderKeys) {

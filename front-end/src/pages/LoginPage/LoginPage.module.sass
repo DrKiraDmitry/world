@@ -1,6 +1,5 @@
 ﻿@import "src/styles/mixins"
 
-
 .loginPage__container
   position: relative
   display: flex
@@ -11,6 +10,10 @@
   max-height: 980px
   @include persona-box
   @include persona-box-skew
+  @include mediaMD
+    height: auto
+    width: auto
+    @include persona-box-skew-off
 
 .loginPage__h1
   
@@ -42,6 +45,12 @@
       color: $per-white-text
   &__button
     @include persona-button
+  &__footer
+    display: flex
+    width: 100%
+    @include mediaMD
+      flex-direction: column
+    
   
 .loginPage__container_1
   @include persona-strict-1

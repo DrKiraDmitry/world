@@ -25,10 +25,12 @@ export class LoginPageStore {
 
   @action async login() {
     await this.LogRegRPC("/login");
+    throw new RouterState(RouteNames.index);
   }
 
   @action async register() {
     await this.LogRegRPC("/register");
+    throw new RouterState(RouteNames.index);
   }
 
   @action clear() {

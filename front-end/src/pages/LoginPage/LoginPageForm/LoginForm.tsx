@@ -24,7 +24,7 @@ const LoginForm: FC<{ store: LoginPageStore }> = ({ store }) => {
         placeholder={"Place for your password"}
         onChange={(e) => (store.password = e.target.value)}
       />
-      <div style={{ display: "flex", width: "100%" }}>
+      <div className={styles.loginPage__form__footer}>
         <button className={styles.loginPage__form__button} onClick={() => store.login()}>
           Accept
         </button>
